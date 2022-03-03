@@ -5,38 +5,42 @@ const Tvshow = require('../models/Tvshow')
 const Director = require('../models/Director')
 
 const { GraphQLObjectType, GraphQLString, 
-    GraphQLSchema , GraphQLID, GraphQLInt, GraphQLList
+    GraphQLSchema , GraphQLID, GraphQLInt,
+    GraphQLList, GraphQLNonNull
 
 
 } = graphql
 
 
 
-const GenreType = new GraphQLObjectType({
-    name : 'Genre',
-    fields: () =>({
-        id : {type: GraphQLID},
-        name : {type: GraphQLString},
-        description : {type: GraphQLString},
-    })
-}) 
+// const GenreType = new GraphQLObjectType({
+//     name : 'Genre',
+//     fields: () =>({
+//         id : {type: GraphQLID},
+//         name : {type: GraphQLString},
+//         description : {type: GraphQLString},
+//     })
+// }) 
 const TvshowType = new  GraphQLObjectType({
     name : 'Tvshow',
     fields: () =>({
         id : {type: GraphQLID},
         title : {type: GraphQLString},
         realseDate : {type: GraphQLString},
-        genre:  {
-            type : new GraphQLList(GenreType),
-            resolve(parent,args){
-               // return _.filter(genres, {name:parent.genre})
+        EpNumber: {type: GraphQLInt},
+        story:  {type: GraphQLString},
+        genre:  {type: GraphQLString
+            // type : new GraphQLList(GenreType),
+            // resolve(parent,args){
+            //    // return _.filter(genres, {name:parent.genre})
 
-            }
+            // }
         },
         director :{
             type: directorType,
             resolve(parent, args){
                // return _.find(directors, {id:parent.directorId})
+               return Director.findById(parent.DirectorId)
 
             }
         }
@@ -50,13 +54,11 @@ const directorType = new  GraphQLObjectType({
         id : {type: GraphQLID},
         name : {type: GraphQLString},
         age : {type: GraphQLInt},
-        tvshows : {
-            type : new GraphQLList(TvshowType)
-        },
         tvshows:  {
             type : new GraphQLList(TvshowType),
             resolve(parent,args){
                // return _.filter(tvshows, {directorId:parent.id})
+               return Tvshow.find({DirectorId: parent.id})
 
             }
         },
@@ -74,6 +76,7 @@ const RootQuery = new  GraphQLObjectType({
             resolve(parent , args) {
                 // get data 
                 //return _.find(tvshows, {id:args.id})
+                return Tvshow.findById(args.id)
             }
         },
         director: {
@@ -82,18 +85,19 @@ const RootQuery = new  GraphQLObjectType({
             resolve(parent , args) {
                 // get data 
                 //return _.find(directors, {id:args.id})
+                return Director.findById(args.id)
             }
         },
         tvshows: {
             type: new GraphQLList(TvshowType),
             resolve(parent, args){
-                //return tvshows
+                return Tvshow.find({})
             }
         },
         directors: {
             type: new GraphQLList(directorType),
             resolve(parent, args){
-                //return directors
+               return Director.find({})
             }
         }
 
@@ -110,8 +114,8 @@ const Mutation = new GraphQLObjectType({
         addDirector :{
             type: directorType,
             args: {
-                name: {type: GraphQLString},
-                age: {type: GraphQLInt}
+                name: { type:new GraphQLNonNull(GraphQLString)},
+                age: {type: new GraphQLNonNull(GraphQLInt)}
 
             },
             resolve(parent,args){
@@ -126,12 +130,12 @@ const Mutation = new GraphQLObjectType({
         addTvshow:{
             type: TvshowType,
             args: {
-                title: {type: GraphQLString},
-                story: {type: GraphQLString},
-                realseDate: {type: GraphQLString},
-                EpNumber: {type: GraphQLInt},
-                genre: {type: GraphQLString},
-                DirectorId: {type: GraphQLID},
+                title: {type:  new GraphQLNonNull(GraphQLString)},
+                story: {type:  new GraphQLNonNull(GraphQLString)},
+                realseDate: {type:  new GraphQLNonNull( GraphQLString)},
+                EpNumber: {type:  new GraphQLNonNull( GraphQLInt)},
+                genre: {type: new GraphQLNonNull( GraphQLString)},
+                DirectorId: {type:  new GraphQLNonNull( GraphQLID)},
 
 
             },
