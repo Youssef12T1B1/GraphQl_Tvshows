@@ -3,6 +3,7 @@ import {
 } from "@apollo/client";
 
 import TvshowList from "./components/TvshowList";
+import AddTvshow from "./components/AddTvshow";
  const client = new ApolloClient({
    uri: 'http://localhost:5000/graphql',
    cache: new InMemoryCache()
@@ -15,6 +16,7 @@ function App() {
          <div id="app">
           <h1>Tv Shows Lists</h1>
           <TvshowList/>
+          <AddTvshow/>
         </div>
       </ApolloProvider>
  

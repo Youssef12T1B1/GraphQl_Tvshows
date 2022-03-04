@@ -1,19 +1,18 @@
-import {gql}  from "@apollo/client";
+
 import { graphql } from '@apollo/client/react/hoc';
 import { Component } from "react";
 
-const getTvshowQuery = gql`
-{
-    tvshows{
-        id
-        title
-    
+import {getTvshowsQuery}  from '../queries/queries'
+import TvshowDetails from './TvshowDetails';
 
-    }
-}
-`
 
 class TvshowList extends Component{
+  constructor(props){
+    super(props)
+    this.state={
+      selected: null
+    }
+  }
    displayTvshows(){
        var data = this.props.data
        if(data.loading){
@@ -21,7 +20,7 @@ class TvshowList extends Component{
        }else{
            return data.tvshows.map(tvshow=>{
                return(
-                   <li key={tvshow.id} >{tvshow.title}</li>
+                   <li key={tvshow.id} onClick={(e)=>{this.setState({selected:tvshow.id})}}>{tvshow.title}</li>
                )
            })
        }
@@ -30,13 +29,14 @@ class TvshowList extends Component{
   render(){
    
     return (
-      <div id="app">
+      <div >
             <ul id="tvshow_list">
               { this.displayTvshows()}
             </ul>
+            <TvshowDetails tvshowID={this.state.selected}/>
       </div>
     );
   }
 }
   
-  export default graphql(getTvshowQuery)(TvshowList);
+  export default graphql(getTvshowsQuery)(TvshowList);
