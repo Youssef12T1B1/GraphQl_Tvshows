@@ -22,10 +22,10 @@ font-family:'Times New Roman', Times, serif ;
       margin: 10px;
       padding: 10px;
       border-radius: 4px;
-      border: 1px solid #880E4F;
+      border: 1px solid #2739dd;
       box-shadow: 1px 2px 3px rgba(0,0,0, 0.3);
       cursor: pointer;
-      color: #880E4F;
+      color: #2739dd;
 
   }
 
@@ -54,7 +54,7 @@ font-family:'Times New Roman', Times, serif ;
   form button{
       color: #fff;
       font-size: 2em;
-      background: #AD1467;
+      background: #276b16;
       border: 0;
       padding: 0 10px;
       border-radius: 50%;
@@ -72,10 +72,82 @@ font-family:'Times New Roman', Times, serif ;
       right: 0;
       width: 40%;
       height: 100%;
-      background: #AD1467;
+      background: #3db36e;
       padding: 30px;
       overflow: auto;
       box-shadow: -2px -3px 5px rgba(0,0,0, 0.3);
       color: #fff;
 
   }
+
+  
+
+.lds-grid {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+   
+  }
+  .lds-grid div {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #2739dd;
+    animation: lds-grid 1.2s linear infinite;
+  }
+  .lds-grid div:nth-child(1) {
+    top: 8px;
+    left: 8px;
+    animation-delay: 0s;
+  }
+  .lds-grid div:nth-child(2) {
+    top: 8px;
+    left: 32px;
+    animation-delay: -0.4s;
+  }
+  .lds-grid div:nth-child(3) {
+    top: 8px;
+    left: 56px;
+    animation-delay: -0.8s;
+  }
+  .lds-grid div:nth-child(4) {
+    top: 32px;
+    left: 8px;
+    animation-delay: -0.4s;
+  }
+  .lds-grid div:nth-child(5) {
+    top: 32px;
+    left: 32px;
+    animation-delay: -0.8s;
+  }
+  .lds-grid div:nth-child(6) {
+    top: 32px;
+    left: 56px;
+    animation-delay: -1.2s;
+  }
+  .lds-grid div:nth-child(7) {
+    top: 56px;
+    left: 8px;
+    animation-delay: -0.8s;
+  }
+  .lds-grid div:nth-child(8) {
+    top: 56px;
+    left: 32px;
+    animation-delay: -1.2s;
+  }
+  .lds-grid div:nth-child(9) {
+    top: 56px;
+    left: 56px;
+    animation-delay: -1.6s;
+  }
+  @keyframes lds-grid {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+  

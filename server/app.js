@@ -7,6 +7,7 @@ const bodyparser = require('body-parser')
 const connectDB = require('./config/db')
 const app = express()
 
+//allow cros-origin requests
 app.use(cors())
 connectDB()
 
@@ -18,7 +19,7 @@ app.use('/graphql', graphqlHTTP({
     graphiql: true
 }))
 
-//allow cros-origin requests
+
 
 
 

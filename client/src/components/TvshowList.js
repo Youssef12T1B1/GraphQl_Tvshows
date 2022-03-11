@@ -3,7 +3,8 @@ import { graphql } from '@apollo/client/react/hoc';
 import { Component } from "react";
 
 import {getTvshowsQuery}  from '../queries/queries'
-import TvshowDetails from './TvshowDetails';
+import TvshowDetails from './TvshowDetails'
+import Spinner from './spinner';
 
 
 class TvshowList extends Component{
@@ -16,7 +17,7 @@ class TvshowList extends Component{
    displayTvshows(){
        var data = this.props.data
        if(data.loading){
-           return(<div> loading Tvshows ... </div>)
+           return( <center><Spinner/></center>)
        }else{
            return data.tvshows.map(tvshow=>{
                return(
